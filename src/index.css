@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme inline {
+	--default-font-family: "Outfit", sans-serif;
+	--color-primary: #251F3D;
+	--color-primary-foreground: #f5d6c7;
+	--color-muted-primary: #997767;
+	--color-accent: #b3a4ff;
+	--color-muted-accent: #342b63;
+}
