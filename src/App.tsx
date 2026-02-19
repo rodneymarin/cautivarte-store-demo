@@ -1,8 +1,26 @@
+import { CartProvider } from "@/context/CartProvider";
+import PageCart from "@/pages/Cart";
+import PageCatalog from "@/pages/Catalog";
+import PageHome from "@/pages/Home";
+import LandingLayout from "@/pages/LandingLayout";
+import PageProduct from "@/pages/Product";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
 
 	return (
-		<h1>Hello World</h1>
+		<CartProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<LandingLayout />}>
+						<Route index element={<PageHome />} />
+						<Route path="catalogo" element={<PageCatalog />} />
+						<Route path="producto/:cod" element={<PageProduct />} />
+						<Route path="carrito" element={<PageCart />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</CartProvider>
 	);
 }
 

@@ -1,10 +1,33 @@
 @import "tailwindcss";
 
 @theme inline {
-	--default-font-family: "Outfit", sans-serif;
-	--color-primary: #251F3D;
-	--color-primary-foreground: #f5d6c7;
-	--color-muted-primary: #997767;
-	--color-accent: #b3a4ff;
-	--color-muted-accent: #342b63;
+	--font-body: 'Nunito Sans', sans-serif;
+	--font-titles: 'Bricolage Grotesque', sans-serif;
+	--color-primary: #000000;
+	--color-primary-foreground: #ffffff;
+	--color-secondary: #EEEEEE;
+	--color-secondary-foreground: #ffffff;
+	--color-accent-primary: #008461;
+	--color-accent-primary-foreground: #ffffff;
+	--color-accent-secondary: #D47E64;
+	--color-accent-secondary-foreground: #ffffff;
+	--color-accent-secondary-darker: #B25C4E;
+}
+
+@layer base {
+	body {
+		font-family: var(--font-body);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: var(--font-title);
+		letter-spacing: -0.02em;
+	}
 }
