@@ -13,9 +13,9 @@ export default function SectionPromo() {
 
 	return (
 		<section className="w-full">
-			<h2 className="section-title">Precios especiales</h2>
+			<h2 className="text-3xl mb-6 font-semibold text-center">Precios especiales</h2>
 			{/* <PromoList /> */}
-			<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+			<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 				{
 					productPromos.map(item => {
 						return (

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { type Product } from "../types/Product";
 import ProductCard from "../components/ProductCard";
-import { ApiEndpoints } from "../types/api";
 import { SelectedCategoryContext } from "../context/SelectedCategoryProvider";
 import CategoriesButtonMobile from "../components/CategoriesButtonMobile";
 import { type Category } from "../types/category";
@@ -18,36 +17,36 @@ export default function PageCatalog() {
 
 	//obtener categorías
 	useEffect(() => {
-		try {
-			fetch(ApiEndpoints.categories)
-				.then(res => res.json())
-				.then((data: Category[]) => {
-					setCategories([allCategoryItem, ...data]);
-				});
-		} catch {
-			console.log("Error al conectar con API");
-		}
+		// try {
+		// 	fetch(ApiEndpoints.categories)
+		// 		.then(res => res.json())
+		// 		.then((data: Category[]) => {
+		// 			setCategories([allCategoryItem, ...data]);
+		// 		});
+		// } catch {
+		// 	console.log("Error al conectar con API");
+		// }
 	}, []);
 
 	//obtener productos
 	useEffect(() => {
-		try {
-			if (selectedCategory.id === 999) {
-				fetch(ApiEndpoints.products)
-					.then(res => res.json())
-					.then((data: Product[]) => {
-						setProducts(data);
-					});
-			} else {
-				fetch(ApiEndpoints.productsByCategory + selectedCategory.id.toString())
-					.then(res => res.json())
-					.then((data: Product[]) => {
-						setProducts(data);
-					});
-			}
-		} catch (err) {
-			console.log(err);
-		}
+		// try {
+		// 	if (selectedCategory.id === 999) {
+		// 		fetch(ApiEndpoints.products)
+		// 			.then(res => res.json())
+		// 			.then((data: Product[]) => {
+		// 				setProducts(data);
+		// 			});
+		// 	} else {
+		// 		fetch(ApiEndpoints.productsByCategory + selectedCategory.id.toString())
+		// 			.then(res => res.json())
+		// 			.then((data: Product[]) => {
+		// 				setProducts(data);
+		// 			});
+		// 	}
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 	}, [selectedCategory.id]);
 
 	function handleClickCategory(cat: Category) {
@@ -78,7 +77,7 @@ export default function PageCatalog() {
 							<>
 								<CategoriesButtonMobile onClick={() => setIsVisibleCategoriesMobile(true)} />
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-									{
+									{/* {
 										products.map((item) => {
 											return <ProductCard
 												isVertical
@@ -87,7 +86,7 @@ export default function PageCatalog() {
 												product={item}
 											/>;
 										})
-									}
+									} */}
 								</div>
 								<div className="block md:hidden">
 									{

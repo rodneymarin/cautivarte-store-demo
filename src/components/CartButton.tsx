@@ -6,7 +6,7 @@ export default function CartButton() {
 	const { totalQuantity } = useCart();
 
 	return (
-		<Link to="/carrito" className="flex px-4 py-1 rounded-full bg-accent-primary text-accent-primary-foreground items-center gap-2 font-bold">
+		<Link to="/carrito" className="flex px-4 py-1 rounded-full bg-accent-primary text-accent-primary-foreground hover:bg-accent-primary-darker items-center gap-2 font-bold transition-all duration-300">
 			{totalQuantity || 0} <BiShoppingBag className="-mt-0.5" />
 		</Link>
 	);

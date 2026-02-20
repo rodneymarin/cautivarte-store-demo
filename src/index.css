@@ -3,11 +3,8 @@
 @theme inline {
 	--font-body: 'Nunito Sans', sans-serif;
 	--font-titles: 'Bricolage Grotesque', sans-serif;
-	--color-primary: #000000;
-	--color-primary-foreground: #ffffff;
-	--color-secondary: #EEEEEE;
-	--color-secondary-foreground: #ffffff;
 	--color-accent-primary: #008461;
+	--color-accent-primary-darker: #00654D;
 	--color-accent-primary-foreground: #ffffff;
 	--color-accent-secondary: #D47E64;
 	--color-accent-secondary-foreground: #ffffff;
@@ -27,7 +24,7 @@
 	h4,
 	h5,
 	h6 {
-		font-family: var(--font-title);
+		font-family: var(--font-titles);
 		letter-spacing: -0.02em;
 	}
 }

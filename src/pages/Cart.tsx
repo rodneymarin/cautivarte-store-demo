@@ -5,7 +5,6 @@ import CartItemTotal from "../components/CartItemTotal";
 import { useCart } from "../hooks/useCart";
 import Dialog from "../components/Dialog";
 import { type Product } from "../types/Product";
-import { ApiEndpoints } from "../types/api";
 
 export default function PageCart() {
 	const { totalItems, removeItem } = useCart();
@@ -19,23 +18,23 @@ export default function PageCart() {
 	}, []);
 
 	useEffect(() => {
-		const tempIds = totalItems.reduce((total, item) => total + "," + item.id.toString(), "");
-		const productIds = tempIds.slice(1, tempIds.length);
-		try {
-			fetch(ApiEndpoints.productsByIds + productIds, {
-				method: "GET",
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-			})
-				.then(res => res.json())
-				.then(data => {
-					data && setProducts(data);
-				});
-		} catch (err) {
-			console.log(err);
-		}
+		// const tempIds = totalItems.reduce((total, item) => total + "," + item.id.toString(), "");
+		// const productIds = tempIds.slice(1, tempIds.length);
+		// try {
+		// 	fetch(ApiEndpoints.productsByIds + productIds, {
+		// 		method: "GET",
+		// 		headers: {
+		// 			'Accept': 'application/json',
+		// 			'Content-Type': 'application/json'
+		// 		},
+		// 	})
+		// 		.then(res => res.json())
+		// 		.then(data => {
+		// 			data && setProducts(data);
+		// 		});
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 	}, [totalItems]);
 
 	useEffect(() => {
@@ -84,13 +83,13 @@ export default function PageCart() {
 				<div className="flex flex-col md:flex-row md:gap-12">
 					<div className="md:min-w-[60%] h-fit flex flex-col px-6 md:px-8 divide-y divide-neutral-200 border border-neutral-200 rounded-3xl bg-white">
 						<>
-							{
+							{/* {
 								products.map(item => {
 									const cartItem = totalItems.find(it => it.id === item.id);
 									const qty = cartItem ? cartItem.quantity : 0;
 									return <CartItem key={item.cod} product={item} quantity={qty} onRemove={() => handleClickRemoveItem(item)} />;
 								})
-							}
+							} */}
 						</>
 					</div>
 					<div className="flex flex-col md:items-end gap-6">

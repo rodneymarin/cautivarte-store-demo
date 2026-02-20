@@ -1,19 +1,17 @@
 import { useCart } from "../hooks/useCart";
 import { useParams } from "react-router-dom";
 import ProductPictureCarrousel from "../components/ProductPictureCarrousel";
-import useFetchProduct from "../hooks/useFetchProduct";
 
 export default function PageProduct() {
 	const { increaseQuantity } = useCart();
-	//const [product, setProduct] = useState<Product | null>(null);
 	const params = useParams();
-	const { product, isLoadingProduct: isLoading } = useFetchProduct(params.cod!);
+	//const { product, isLoadingProduct: isLoading } = useFetchProduct(params.cod!);
 
-	if (isLoading) return <p className="text-neutral-200">Cargando...</p>;
+	//if (isLoading) return <p className="text-neutral-200">Cargando...</p>;
 
 	return (
 		<main className="w-full flex flex-col md:flex-row md:gap-8">
-			{
+			{/* {
 				<>
 					<div className="w min-w-[60%]">
 						{
@@ -44,7 +42,7 @@ export default function PageProduct() {
 						}
 					</div>
 				</>
-			}
+			} */}
 
 
 		</main>
