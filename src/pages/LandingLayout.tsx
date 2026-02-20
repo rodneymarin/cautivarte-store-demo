@@ -17,7 +17,7 @@ export default function LandingLayout() {
 			</HeaderNav> */}
 			<HeaderNav />
 			<Outlet />
-			<section className="w-full xl:px-0 max-w-6xl mx-auto text-center my-24 pt-16 border-t border-neutral-200">
+			<section className="w-full xl:px-0 max-w-6xl mx-auto text-center py-8 md:py-16 border-t border-neutral-200">
 				<p>
 					&copy;2024 Cautivarte Accesorios
 				</p>

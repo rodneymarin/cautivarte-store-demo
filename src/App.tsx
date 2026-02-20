@@ -1,4 +1,5 @@
 import { CartProvider } from "@/context/CartProvider";
+import { AppProvider } from "@/context/AppContext";
 import PageCart from "@/pages/Cart";
 import PageCatalog from "@/pages/Catalog";
 import PageHome from "@/pages/Home";
@@ -9,18 +10,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
 
 	return (
-		<CartProvider>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<LandingLayout />}>
-						<Route index element={<PageHome />} />
-						<Route path="catalogo" element={<PageCatalog />} />
-						<Route path="producto/:cod" element={<PageProduct />} />
-						<Route path="carrito" element={<PageCart />} />
-					</Route>
-				</Routes>
-			</BrowserRouter>
-		</CartProvider>
+		<AppProvider>
+			<CartProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route path="/" element={<LandingLayout />}>
+							<Route index element={<PageHome />} />
+							<Route path="catalogo" element={<PageCatalog />} />
+							<Route path="producto/:cod" element={<PageProduct />} />
+							<Route path="carrito" element={<PageCart />} />
+						</Route>
+					</Routes>
+				</BrowserRouter>
+			</CartProvider>
+		</AppProvider>
 	);
 }
 

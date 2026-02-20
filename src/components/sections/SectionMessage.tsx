@@ -1,9 +1,9 @@
-import { useData } from "@/hooks/useData";
+import { useApp } from "@/context/AppContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function SectionMessage() {
-	const { messageImageURL, CMSContent } = useData();
+	const { messageImageURL, CMSContent } = useApp();
 	const [brandMessage, setBrandMessage] = useState<string>('');
 
 	useEffect(() => {

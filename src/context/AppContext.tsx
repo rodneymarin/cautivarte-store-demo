@@ -1,17 +1,29 @@
+import { type PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/supabase/supabaseClient";
 import { mapDataToCMSContentItem, type CMSContentItem, type CMSContentItemData } from "@/types/CMSContent";
 import { mapDataToProduct, type Product, type ProductData } from "@/types/Product";
-import { useEffect, useState } from "react";
 
-export function useData() {
-	const [heroImageURL, setHeroImageURL] = useState<string>('');
+type AppContextType = {
+	fetchPromos: () => Promise<Product[]>;
+	fetchHeroImageURL: () => void;
+	fetchMessageImageURL: () => void;
+	fetchCMSContent: () => Promise<void> | void;
+	heroImageURL: string;
+	messageImageURL: string;
+	CMSContent: CMSContentItem[];
+};
+
+export const AppContext = createContext({} as AppContextType);
+
+export function AppProvider({ children }: PropsWithChildren) {
+	const [heroImageURL, setHeroImageURL] = useState<string>("");
 	const [CMSContent, setCMSContent] = useState<CMSContentItem[]>([]);
-	const [messageImageURL, setMessageImageURL] = useState<string>('');
+	const [messageImageURL, setMessageImageURL] = useState<string>("");
 
 	useEffect(() => {
 		fetchHeroImageURL();
 		fetchMessageImageURL();
-		fetchCMSContent();
+		void fetchCMSContent();
 	}, [supabase]);
 
 	async function fetchPromos(): Promise<Product[]> {
@@ -45,19 +57,27 @@ export function useData() {
 			const { data, error } = await supabase.from("CMSContent").select("*");
 			if (error) {
 				console.log(error);
-				return "";
+				return;
 			}
 			if (!data || data.length === 0) {
 				console.log("No data found");
-				return "";
+				return;
 			}
 			const CMSContentResponse = data as CMSContentItemData[];
-			const CMSContent: CMSContentItem[] = CMSContentResponse.map(mapDataToCMSContentItem);
-			setCMSContent(CMSContent);
+			const CMSContentItems: CMSContentItem[] = CMSContentResponse.map(mapDataToCMSContentItem);
+			setCMSContent(CMSContentItems);
 		} catch (err) {
 			console.log(err);
 		}
 	}
 
-	return { fetchPromos, heroImageURL, messageImageURL, CMSContent };
+	return (
+		<AppContext.Provider value={{ fetchPromos, fetchHeroImageURL, fetchMessageImageURL, fetchCMSContent, heroImageURL, messageImageURL, CMSContent }}>
+			{children}
+		</AppContext.Provider>
+	);
+}
+
+export function useApp() {
+	return useContext(AppContext);
 }

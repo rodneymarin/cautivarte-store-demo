@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import type { Product } from "@/types/Product";
-import { useData } from "@/hooks/useData";
+import { useApp } from "@/context/AppContext";
 import ProductCard from "@/components/ProductCard";
 
 export default function SectionPromo() {
-	const { fetchPromos } = useData();
+	const { fetchPromos } = useApp();
 	const [productPromos, setProductPromos] = useState<Product[]>([]);
 
 	useEffect(() => {

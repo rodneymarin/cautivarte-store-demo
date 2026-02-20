@@ -1,10 +1,10 @@
-import { useData } from "@/hooks/useData";
+import { useApp } from "@/context/AppContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 
 export default function SectionHero() {
-	const { heroImageURL, CMSContent } = useData();
+	const { heroImageURL, CMSContent } = useApp();
 	const [heroTitle, setHeroTitle] = useState<string>('');
 
 	useEffect(() => {

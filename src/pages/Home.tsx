@@ -6,11 +6,11 @@ import SectionPromo from "../components/sections/SectionPromo";
 export default function PageHome() {
 
 	return (
-		<main className="max-w-6xl mx-auto flex flex-col gap-16 md:gap-24 mb-24">
+		<main className="max-w-6xl mx-auto flex flex-col gap-16 md:gap-24 pb-16 md:pb-24">
 			<SectionHero />
 			<SectionPromo />
 			<SectionMessage />
-			{/* <SectionContact /> */}
+			<SectionContact />
 		</main>
 	);
 }
