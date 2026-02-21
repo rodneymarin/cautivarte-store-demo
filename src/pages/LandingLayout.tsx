@@ -5,7 +5,7 @@ import HeaderNav from "../components/HeaderNav";
 export default function LandingLayout() {
 
 	return (
-		<div className="xl:mx-auto mx-6 max-w-6xl">
+		<div className="xl:mx-auto mx-4 max-w-6xl">
 			{/* <HeaderNav>
 				<Link to="/" className="h-12 pb-2">
 					<img src={logo} alt="Cautivarte Logo" className="h-full w-auto" />
