@@ -3,67 +3,50 @@ import { type Product } from "../types/Product";
 import ProductCard from "../components/ProductCard";
 import { SelectedCategoryContext } from "../context/SelectedCategoryProvider";
 import CategoriesButtonMobile from "../components/CategoriesButtonMobile";
-import { type Category } from "../types/category";
+import { type Category } from "../types/Category";
 import SidebarNav from "../components/SidebarNav";
 import SidebarNavButton from "../components/SidebarNavButton";
 import Modal from "../components/Modal";
+import { useApp } from "@/context/AppContext";
 
 export default function PageCatalog() {
-	const { selectedCategory, setSelectedCategory } = useContext(SelectedCategoryContext);
+	const { fetchProductsByCategory, fetchCategories } = useApp();
 	const [products, setProducts] = useState<Product[]>([]);
-	const allCategoryItem: Category = { id: 999, name: "Todos" };
-	const [categories, setCategories] = useState<Category[]>([allCategoryItem]);
+	const [categories, setCategories] = useState<Category[]>([]);
+	const { selectedCategory, setSelectedCategory } = useContext(SelectedCategoryContext);
 	const [isVisibleCaregoriesMobile, setIsVisibleCategoriesMobile] = useState<boolean>(false);
 
 	//obtener categorías
 	useEffect(() => {
-		// try {
-		// 	fetch(ApiEndpoints.categories)
-		// 		.then(res => res.json())
-		// 		.then((data: Category[]) => {
-		// 			setCategories([allCategoryItem, ...data]);
-		// 		});
-		// } catch {
-		// 	console.log("Error al conectar con API");
-		// }
+		fetchCategories()
+			.then((data: Category[]) => {
+				setCategories([{ id: 999, name: "Todos" }, ...data]);
+			});
 	}, []);
 
 	//obtener productos
 	useEffect(() => {
-		// try {
-		// 	if (selectedCategory.id === 999) {
-		// 		fetch(ApiEndpoints.products)
-		// 			.then(res => res.json())
-		// 			.then((data: Product[]) => {
-		// 				setProducts(data);
-		// 			});
-		// 	} else {
-		// 		fetch(ApiEndpoints.productsByCategory + selectedCategory.id.toString())
-		// 			.then(res => res.json())
-		// 			.then((data: Product[]) => {
-		// 				setProducts(data);
-		// 			});
-		// 	}
-		// } catch (err) {
-		// 	console.log(err);
-		// }
-	}, [selectedCategory.id]);
+		fetchProductsByCategory(selectedCategory.id)
+			.then((data: Product[]) => {
+				setProducts(data);
+			});
+	}, [selectedCategory]);
 
-	function handleClickCategory(cat: Category) {
-		setSelectedCategory(cat);
+	function handleSelectCategory(category: Category) {
+		setSelectedCategory(category);
 		setIsVisibleCategoriesMobile(false);
 	}
 
 	return (
-		<main className="flex flex-row gap-4">
-			<div className="w-1/4 flex-col md:block hidden">
+		<main className="flex flex-row gap-4 pb-12">
+			<div className="w-60 flex-col md:block hidden">
 				{
 					categories.length === 1 ?
-						(<p className="text-neutral-200">Cargando...</p>) :
-						(<SidebarNav title="Categorías">
+						(<p className="text-neutral-200">Cargando...</p>)
+						: (<SidebarNav title="Categorías">
 							{
 								categories.map(cat => (
-									<SidebarNavButton key={cat.id} selected={selectedCategory.id === cat.id} onClick={() => handleClickCategory(cat)}>{cat.name}</SidebarNavButton>
+									<SidebarNavButton key={cat.id} selected={selectedCategory.id === cat.id} onClick={() => handleSelectCategory(cat)}>{cat.name}</SidebarNavButton>
 								))
 							}
 						</SidebarNav>)
@@ -77,16 +60,15 @@ export default function PageCatalog() {
 							<>
 								<CategoriesButtonMobile onClick={() => setIsVisibleCategoriesMobile(true)} />
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-									{/* {
+									{
 										products.map((item) => {
 											return <ProductCard
 												isVertical
-												linkTo={"/producto/" + item.cod}
-												key={item.cod}
+												key={item.id}
 												product={item}
 											/>;
 										})
-									} */}
+									}
 								</div>
 								<div className="block md:hidden">
 									{
@@ -95,7 +77,7 @@ export default function PageCatalog() {
 											<SidebarNav className="px-6 mt-28">
 												{
 													categories.map(cat => (
-														<SidebarNavButton key={cat.id} alignCenter className="h-16" selected={selectedCategory.id === cat.id} onClick={() => handleClickCategory(cat)}>{cat.name}</SidebarNavButton>
+														<SidebarNavButton key={cat.id} alignCenter className="h-16" selected={selectedCategory.id === cat.id} onClick={() => handleSelectCategory(cat)}>{cat.name}</SidebarNavButton>
 													))
 												}
 											</SidebarNav>

@@ -1,5 +1,5 @@
 import { Link, type To } from "react-router-dom";
-import { type Category } from "../types/category";
+import { type Category } from "../types/Category";
 
 interface CategoryCardProps {
 	category: Category,

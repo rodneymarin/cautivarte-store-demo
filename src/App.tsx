@@ -6,6 +6,7 @@ import PageHome from "@/pages/Home";
 import LandingLayout from "@/pages/LandingLayout";
 import PageProduct from "@/pages/Product";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SelectedCategoryProvider, { SelectedCategoryContext } from "@/context/SelectedCategoryProvider";
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<LandingLayout />}>
 							<Route index element={<PageHome />} />
-							<Route path="catalogo" element={<PageCatalog />} />
+							<Route path="catalogo" element={<SelectedCategoryProvider ><PageCatalog /></SelectedCategoryProvider>} />
 							<Route path="producto/:cod" element={<PageProduct />} />
 							<Route path="carrito" element={<PageCart />} />
 						</Route>

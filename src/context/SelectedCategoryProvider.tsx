@@ -1,5 +1,5 @@
 import { type PropsWithChildren, createContext, useState } from "react";
-import { type Category } from "../types/category";
+import { type Category } from "../types/Category";
 
 type SelectedCategoryContextType = {
 	selectedCategory: Category;

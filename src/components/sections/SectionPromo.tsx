@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
-import type { Product } from "@/types/Product";
-import { useApp } from "@/context/AppContext";
 import ProductCard from "@/components/ProductCard";
+import { useApp } from "@/context/AppContext";
 
 export default function SectionPromo() {
-	const { fetchPromos } = useApp();
-	const [productPromos, setProductPromos] = useState<Product[]>([]);
-
-	useEffect(() => {
-		fetchPromos().then(data => setProductPromos(data));
-	}, []);
+	const { promos } = useApp();
 
 	return (
 		<section className="w-full">
@@ -17,7 +10,7 @@ export default function SectionPromo() {
 			{/* <PromoList /> */}
 			<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 				{
-					productPromos.map(item => {
+					promos.map(item => {
 						return (
 							<ProductCard isVertical key={item.productCode} product={item} />
 						);
