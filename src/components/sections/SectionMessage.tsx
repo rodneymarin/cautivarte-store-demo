@@ -1,3 +1,4 @@
+import SmartImage from "@/components/SmartImage";
 import { useApp } from "@/context/AppContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -17,9 +18,10 @@ export default function SectionMessage() {
 
 	return (
 		<section className="w-full ">
-			<div className="rounded-3xl bg-white border border-neutral-200 flex flex-row items-center overflow-hidden relative">
-				{messageImageURL && <img src={messageImageURL} alt="image message" className="object-cover object-center rounded-r-3xl absolute top-0 left-0 w-[30%] h-full" />}
-				<div className="flex flex-col gap-4 pl-[35%] pr-4 md:pr-8 py-8 md:py-16">
+			<div className="rounded-3xl bg-white border border-neutral-200 flex overflow-hidden">
+				{/* {messageImageURL && <img src={messageImageURL} alt="image message" className="object-cover object-center rounded-r-3xl absolute top-0 left-0 w-[30%] h-full" />} */}
+				<SmartImage src={messageImageURL} alt="image message" className="flex rounded-r-3xl w-[40%] md:w-[30%]" />
+				<div className="flex flex-col gap-4 p-4 md:pr-8 py-8 md:py-16 flex-1 justify-center">
 					<h3 className="font-titles text-lgl md:text-3xl font-semibold">
 						{brandMessage}
 					</h3>

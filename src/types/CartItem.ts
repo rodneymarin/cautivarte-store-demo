@@ -1,4 +1,4 @@
 export type CartItemType = {
-  id: number;
-  quantity: number;
-}
+	productCode: string;
+	quantity: number;
+};

@@ -1,13 +1,13 @@
 import type { CartItemType } from "@/types/CartItem";
-import { type PropsWithChildren, createContext, useEffect, useState } from "react";
+import { type PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
 type CartHandlers = {
-	getQuantity: (id: number) => number;
-	increaseQuantity: (id: number) => void;
-	decreaseQuantity: (id: number) => void;
-	removeItem: (id: number) => void;
+	getQuantity: (productCode: string) => number;
+	increaseQuantity: (productCode: string) => void;
+	decreaseQuantity: (productCode: string) => void;
+	removeItem: (productCode: string) => void;
 	totalQuantity: number;
-	totalItems: CartItemType[];
+	cartItems: CartItemType[];
 };
 
 export const CartContext = createContext({} as CartHandlers);
@@ -16,6 +16,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 	const dataStorageCart = localStorage.getItem("cartItems");
 	const localStorageCart = JSON.parse(dataStorageCart || "[]");
 	const [cartItems, setCartItems] = useState<CartItemType[]>(localStorageCart);
+	const totalQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
 
 	useEffect(() => {
 		localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -26,23 +27,38 @@ export function CartProvider({ children }: PropsWithChildren) {
 		setCartItems(JSON.parse(data || "[]"));
 	}, []);
 
-	const totalQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
-	function getQuantity(id: number) {
-		return cartItems.find(item => item.id === id)?.quantity || 0;
+	function getQuantity(productCode: string) {
+		return cartItems.find(item => item.productCode === productCode)?.quantity || 0;
 	}
 
-	function increaseQuantity(id: number) {
-		if (cartItems.find(it => it.id === id) == null) {
-			setCartItems(curItems => {
-				return [...curItems, { id: id, quantity: 1 }];
+	function increaseQuantity(productCode: string) {
+		if (!cartItems.find(it => it.productCode === productCode)) {
+			setCartItems(currentItems => {
+				return [...currentItems, { productCode, quantity: 1 }];
 			});
 		} else {
-			setCartItems(curItems => {
-				return curItems.map(it => {
-					if (it.id === id) {
-						return { ...it, quantity: it.quantity + 1 };
+			setCartItems(currentItems => {
+				return currentItems.map(item => {
+					if (item.productCode === productCode) {
+						return { ...item, quantity: item.quantity + 1 };
 					} else {
-						return it;
+						return item;
+					}
+				});
+			});
+		}
+	}
+
+	function decreaseQuantity(productCode: string) {
+		if (cartItems.find(item => item.productCode === productCode)?.quantity === 1) {
+			setCartItems(currentItems => currentItems.filter(item => item.productCode !== productCode));
+		} else {
+			setCartItems(currentItems => {
+				return currentItems.map(item => {
+					if (item.productCode === productCode) {
+						return { ...item, quantity: item.quantity - 1 };
+					} else {
+						return item;
 					}
 				});
 			});
@@ -50,31 +66,18 @@ export function CartProvider({ children }: PropsWithChildren) {
 
 	}
 
-	function decreaseQuantity(id: number) {
-		if (cartItems.find(it => it.id === id)?.quantity === 1) {
-			setCartItems(curItems => curItems.filter(it => it.id !== id));
-		} else {
-			setCartItems(curItems => {
-				return curItems.map(it => {
-					if (it.id === id) {
-						return { ...it, quantity: it.quantity - 1 };
-					} else {
-						return it;
-					}
-				});
-			});
-		}
-
-	}
-
-	function removeItem(id: number) {
-		setCartItems(curItems => curItems.filter(it => it.id !== id));
+	function removeItem(productCode: string) {
+		setCartItems(curItems => curItems.filter(item => item.productCode !== productCode));
 
 	}
 
 	return (
-		<CartContext.Provider value={{ getQuantity, increaseQuantity, decreaseQuantity, removeItem, totalQuantity, totalItems: cartItems }}>
+		<CartContext.Provider value={{ getQuantity, increaseQuantity, decreaseQuantity, removeItem, totalQuantity, cartItems }}>
 			{children}
 		</CartContext.Provider>
 	);
+}
+
+export function useCart() {
+	return useContext(CartContext);
 }

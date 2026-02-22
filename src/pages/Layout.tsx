@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import HeaderNav from "../components/HeaderNav";
 
 
-export default function LandingLayout() {
+export default function Layout() {
 
 	return (
 		<div className="xl:mx-auto mx-4 max-w-6xl">

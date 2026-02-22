@@ -1,4 +1,3 @@
-import type { MouseEventHandler } from "react";
 import { FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 

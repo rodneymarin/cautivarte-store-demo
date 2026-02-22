@@ -7,6 +7,7 @@ import { mapDataToCategory, type Category, type CategoryData } from "@/types/Cat
 type AppContextType = {
 	fetchProductsByCategory: (categoryId: number) => Promise<Product[]>;
 	fetchCategories: () => Promise<Category[]>;
+	fetchProductByCode: (productCode: string) => Promise<Product | undefined>;
 	promos: Product[];
 	heroImageURL: string;
 	messageImageURL: string;
@@ -69,6 +70,26 @@ export function AppProvider({ children }: PropsWithChildren) {
 				console.log(err);
 				return [];
 			}
+		}
+	}
+
+	async function fetchProductByCode(productCode: string): Promise<Product | undefined> {
+		try {
+			const { data, error } = await supabase.from("Products").select("*").eq("product_code", productCode);
+			if (error) {
+				console.log(error);
+				return undefined;
+			}
+			if (!data || data.length === 0) {
+				console.log("No data found");
+				return undefined;
+			}
+			const productResponse = data as ProductData[];
+			const product: Product = mapDataToProduct(productResponse[0]);
+			return product;
+		} catch (err) {
+			console.log(err);
+			return undefined;
 		}
 	}
 
@@ -147,7 +168,7 @@ export function AppProvider({ children }: PropsWithChildren) {
 	}
 
 	return (
-		<AppContext.Provider value={{ fetchProductsByCategory, fetchCategories, promos, heroImageURL, messageImageURL, CMSContent }}>
+		<AppContext.Provider value={{ fetchProductsByCategory, fetchCategories, fetchProductByCode, promos, heroImageURL, messageImageURL, CMSContent }}>
 			{children}
 		</AppContext.Provider>
 	);

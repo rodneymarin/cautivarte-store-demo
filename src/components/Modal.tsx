@@ -4,13 +4,13 @@ interface ModalProps {
 	onClick?: () => void;
 }
 
-export default function Modal(props: PropsWithChildren<ModalProps>) {
+export default function Modal({ children, onClick }: PropsWithChildren<ModalProps>) {
 	//if (!props.isVisible) return null;
 	return (
-		<div className="w-screen h-screen bg-stone-600/75 fixed inset-0 flex z-50"
-			onClick={() => { props.onClick && props.onClick(); }}
+		<div className="w-screen h-screen bg-black/20 backdrop-blur-xs fixed inset-0 flex items-center justify-center z-100"
+			onClick={() => { onClick && onClick(); }}
 		>
-			{props.children}
+			{children}
 		</div>
 	);
 }

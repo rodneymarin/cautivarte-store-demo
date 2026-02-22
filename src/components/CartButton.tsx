@@ -1,6 +1,6 @@
+import { useCart } from "@/context/CartProvider";
 import { BiShoppingBag } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { useCart } from "../hooks/useCart";
 
 export default function CartButton() {
 	const { totalQuantity } = useCart();

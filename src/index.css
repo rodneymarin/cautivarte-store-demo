@@ -16,6 +16,7 @@
 		font-family: var(--font-body);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+		@apply bg-neutral-100
 	}
 
 	h1,
