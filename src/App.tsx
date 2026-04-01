@@ -14,7 +14,7 @@ function App() {
 	return (
 		<AppProvider>
 			<CartProvider>
-				<BrowserRouter basename="/cautivarte-store/">
+				<BrowserRouter basename="/">
 					<Routes>
 						<Route path="/" element={<Layout />}>
 							<Route index element={<PageHome />} />
